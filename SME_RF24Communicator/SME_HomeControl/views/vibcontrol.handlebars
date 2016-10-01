@@ -1,0 +1,107 @@
+<div data-role="page" id="vibcontrol" data-url="/vibcontrol" data-theme="b">
+	<div data-role="header" data-position="fixed"> 
+		<h1 class="TitleHeader">Vibrator-Control</h1>
+		<a href="/" data-role="button" data-icon="home" data-iconshadow="true"
+		data-direction="reverse" onclick="" data-transition="slide"
+		data-iconpos="notext">Home</a>
+		<a href="/vibcontrolOptions" data-role="button" data-icon="gear" data-iconshadow="true"
+		rel="external" onclick="" data-transition="slide"
+		data-iconpos="notext" class="ui-btn-right">Options</a>
+	</div> 
+	<div data-role="main" class="ui-content">
+		
+		<div class="flip_grid ui-grid-a">
+			<div class="flip_grid_label ui-block-a">
+				<label class="label_vib_sources" for="Selectmenu_VibSources_Vib">Vibrator</label>
+			</div>
+			<div class="Vib_Sources_grid ui-block-b">
+				<select name="Selectmenu_VibSources_Vib" id="Selectmenu_VibSources_Vib" data-mini="true">
+				<option value="1">Plug Manual Pump</option>
+				<option value="2">Fun Factory</option>
+				<option value="3">Plug Elektric Pump</option>
+				<option value="5">Vibrator 3 Motors</option>
+			</select>
+			</div>
+			
+			
+			<div class="flip_grid_label ui-block-a">
+				<label class="label_vib_sources" for="vib_sources">Programm</label>
+			</div>
+			<div class="Vib_Sources_grid ui-block-b">
+				<select name="Selectmenu_VibProgramms_Vib" id="Selectmenu_VibProgramms_Vib" data-mini="true">
+					<option value="1">Continous</option>
+					<option value="2">Pulse</option>
+					<option value="3">Fade</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="flip_grid ui-grid-b">
+			<div class="flip_grid_label ui-block-a">
+				<label class="flip_label" for="ToggleButton_VibPower_Vib">Vibrator Power</label>
+			</div>
+			
+			<div class="Vib_Power_grid ui-block-b">
+				<select name="ToggleButton_VibPower_Vib" id="ToggleButton_VibPower_Vib" data-role="flipswitch">
+					<option value="0">Aus</option>
+					<option value="1">An</option>
+				</select>
+			</div>
+		</div>
+		
+	
+	
+	
+		
+		
+		
+		
+		
+		<div class="ui-field-contain slider_pos">
+			<div data-role="rangeslider">
+				<label for="Slider_MinPower_Vib">Min / Max</label>
+				<input type="range" name="Slider_MinPower_Vib" id="Slider_MinPower_Vib" min="0" max="255" value="10">
+				<label for="Slider_MaxPower_Vib">Speed Min/Max</label>
+				<input type="range" name="Slider_MaxPower_Vib" id="Slider_MaxPower_Vib" min="0" max="255" value="245">
+			</div>
+		</div>
+		<div id="VibPump">
+			<div data-role="fieldcontain" class="ui-field-contain slider_pos">
+				<label for="Slider_PumpLevel_Vib" class="slider_label">Pump Level</label>
+				<input type="range" name="Slider_PumpLevel_Vib" id="Slider_PumpLevel_Vib" min="0" max="99" value="0">
+			</div>
+		</div>
+		<div id="VibDelay">
+			<div data-role="fieldcontain" class="ui-field-contain slider_pos">
+				<label for="Slider_DelayUp_Vib" class="slider_label">Max Delay</label>
+				<input type="range" name="Slider_DelayUp_Vib" id="Slider_DelayUp_Vib" min="0.1" max="5" step=".1" value="0.1">
+			</div>
+			<div data-role="fieldcontain" class="ui-field-contain slider_pos">
+				<label for="Slider_DelayDown_Vib" class="slider_label">Min Delay</label>
+				<input type="range" name="Slider_DelayDown_Vib" id="Slider_DelayDown_Vib" min="0.1" max="5" step=".1" value="0.1">
+			</div>
+		</div>
+		<div id="VibRamp">
+			<div data-role="fieldcontain" class="ui-field-contain slider_pos">
+				<label for="Slider_RampUp_Vib" class="slider_label">Max Ramp</label>
+				<input type="range" name="Slider_RampUp_Vib" id="Slider_RampUp_Vib" min="0.1" max="5" step=".1" value="0.1">
+			</div>
+			<div data-role="fieldcontain" class="ui-field-contain slider_pos">
+				<label for="Slider_RampDown_Vib" class="slider_label">Min Ramp</label>
+				<input type="range" name="Slider_RampDown_Vib" id="Slider_RampDown_Vib" min="0.1" max="5" step=".1" value="0.1">
+			</div>
+		</div>
+	</div>
+	<div data-role="footer" data-position="fixed" data-id="footer">
+		<div data-role="fieldcontain" class="ui-field-contain" data-position="inline">
+			<div class="VibAnimation meter orange animate">
+				<span style="width: 0%"><span></span></span>
+			</div>
+		</div>
+		<a href="" name="Init_Vib" id="Init_Vib" class="init_icon_animation ui-btn-left ui-btn ui-shadow ui-corner-all ui-icon-alert ui-shadow-icon ui-state-disabled ui-btn-icon-notext"></a>
+		<a href="" name="Refresh_Vib" id="Refresh_Vib" class="init_icon_animation ui-btn-right ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-shadow-icon ui-btn-icon-notext">Not Initialized</a>
+		<h4>&copy; 2015 Stephan Merz</h4>
+	</div>
+</div>
+	
+</div>

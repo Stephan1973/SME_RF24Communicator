@@ -1,0 +1,130 @@
+<div data-role="page" id="floor" data-url="/floor" data-theme="b">
+	<div data-role="header" data-position="fixed"> 
+		<h1 class="TitleHeader">Floor</h1>
+		<a href="/" data-role="button" data-icon="home" data-iconshadow="true"
+		data-direction="reverse" onclick="" data-transition="slide"
+		data-iconpos="notext">Home</a>
+		<a href="" data-role="button" data-icon="gear" data-iconshadow="true"
+		rel="" onclick="" data-transition="slide"
+		data-iconpos="notext" class="ui-btn-right">Options</a>
+	</div> 
+	<div data-role="main" class="ui-content">
+		<div class="flip_grid ui-grid-a">
+			<div class="flip_grid_label ui-block-a">
+				<label class="flip_label" for="Combined_ToggleButton_Relay_Floor_Room_1_Fav">LED-Stripe</label>
+			</div>
+			<div class="flip_grid_block ui-block-b">
+				<select name="Combined_ToggleButton_Relay_Floor_Room_1_Fav" id="Combined_ToggleButton_Relay_Floor_Room_1_Fav" data-role="flipswitch" value="1">
+					<option value="1">Aus</option>
+					<option value="0">An</option>
+				</select>
+			</div>
+			<div class="flip_grid_label ui-block-a">
+				<label class="flip_label" for="Combined_ToggleButton_Relay_Floor_Room_2_Fav">Fritz Box</label>
+			</div>
+			<div class="flip_grid_block ui-block-b">
+				<select name="Combined_ToggleButton_Relay_Floor_Room_2_Fav" id="Combined_ToggleButton_Relay_Floor_Room_2_Fav" data-role="flipswitch" value="1">
+					<option value="1">Aus</option>
+					<option value="0">An</option>
+				</select>
+			</div>
+			<div class="flip_grid_label ui-block-a">
+				<label class="flip_label" for="Combined_ToggleButton_Relay_Floor_Room_3_Fav">HDD</label>
+			</div>
+			<div class="flip_grid_block ui-block-b">
+				<select name="Combined_ToggleButton_Relay_Floor_Room_3_Fav" id="Combined_ToggleButton_Relay_Floor_Room_3_Fav" data-role="flipswitch" value="1">
+					<option value="1">Aus</option>
+					<option value="0">An</option>
+				</select>
+			</div>
+			<div class="flip_grid_label ui-block-a">
+				<label class="flip_label" for="Combined_ToggleButton_Relay_Floor_Room_4_Fav">Phone</label>
+			</div>
+			<div class="flip_grid_block ui-block-b">
+				<select name="Combined_ToggleButton_Relay_Floor_Room_4_Fav" id="Combined_ToggleButton_Relay_Floor_Room_4_Fav" data-role="flipswitch" value="1">
+					<option value="1">Aus</option>
+					<option value="0">An</option>
+				</select>
+			</div>
+		</div>
+		
+		<fieldset data-role="collapsible">
+			<legend>LED Control</legend>
+			<div data-role="fieldcontain" class="flip_slider">
+				<label for="Slider_Dim_LEDStipe_Floor_Room" class="slider_label">Dim</label>
+				<input type="range" name="Slider_Dim_LEDStipe_Floor_Room" id="Slider_Dim_LEDStipe_Floor_Room" min="0" max="100" value="50">
+			</div>
+			<div class="flip_grid ui-grid-b">
+				<div class="flip_grid_label ui-block-a">
+					<label class="flip_label" for="LED_Stipe_010_default">Colors</label>
+				</div>
+				<div class="flip_grid_block ui-block-b">
+					<button name="Color_DefaultButton_LEDStipe_Floor_Room_White" id="Color_DefaultButton_LEDStipe_Floor_Room_White" class="LED_Stipe_white ui-btn ui-btn-inline default_color_button"></button>
+					<button name="Color_DefaultButton_LEDStipe_Floor_Room_1" id="Color_DefaultButton_LEDStipe_Floor_Room_1" class="Color_DefaultButton_LEDStipe_Floor_Room_1 ui-btn ui-btn-inline default_color_button"></button>
+				</div>
+				<div class="flip_grid_label ui-block-a">
+					
+				</div>
+				<div class="Color_Source_grid ui-block-b">
+					<input type="text" id="Color_Control_Floor_Room" name="Color_Control_Floor_Room" data-mini="true" value="rgb(255,255,255)"/>
+				</div>
+			</div>
+		</fieldset>
+		
+		<fieldset data-role="collapsible">
+			<legend>Relay Control</legend>
+			<div class="flip_grid ui-grid-c">
+				<div class="flip_grid_label ui-block-a">
+					<label class="flip_label" for="Combined_ToggleButton_Relay_Floor_Room_1">Power LED</label>
+				</div>
+				<div class="flip_grid_block ui-block-b">
+					<select name="Combined_ToggleButton_Relay_Floor_Room_1" id="Combined_ToggleButton_Relay_Floor_Room_1" data-role="flipswitch" value="1">
+						<option value="1">Aus</option>
+						<option value="0">An</option>
+					</select>
+				</div>
+				<div class="flip_grid_label ui-block-a">
+					<label class="flip_label" for="Combined_ToggleButton_Relay_Floor_Room_2">Power Fritz Box</label>
+				</div>
+				<div class="flip_grid_block ui-block-b">
+					<select name="Combined_ToggleButton_Relay_Floor_Room_2" id="Combined_ToggleButton_Relay_Floor_Room_2" data-role="flipswitch" value="1">
+						<option value="1">Aus</option>
+						<option value="0">An</option>
+					</select>
+				</div>
+				<div class="flip_grid_label ui-block-a">
+					<label class="flip_label" for="Combined_ToggleButton_Relay_Floor_Room_3">Power HDD</label>
+				</div>
+				<div class="flip_grid_block ui-block-b">
+					<select name="Combined_ToggleButton_Relay_Floor_Room_3" id="Combined_ToggleButton_Relay_Floor_Room_3" data-role="flipswitch" value="1">
+						<option value="1">Aus</option>
+						<option value="0">An</option>
+					</select>
+				</div>
+				<div class="flip_grid_label ui-block-a">
+					<label class="flip_label" for="Combined_ToggleButton_Relay_Floor_Room_4">Power Phone</label>
+				</div>
+				<div class="flip_grid_block ui-block-b">
+					<select name="Combined_ToggleButton_Relay_Floor_Room_4" id="Combined_ToggleButton_Relay_Floor_Room_4" data-role="flipswitch" value="1">
+						<option value="1">Aus</option>
+						<option value="0">An</option>
+					</select>
+				</div>
+			</div>
+		</fieldset>
+	
+	</div>
+	<div data-role="footer" data-position="fixed" data-id="footer">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#" id="Temperatur_Floor_Room" name="Temperatur_Floor_Room">Temperatur</a></li>
+				<li><a href="#" id="Humidity_Floor_Room" name="Humidity_Floor_Room">Luftfeuchtigkeit</a></li>
+			</ul>
+		</div>
+		<a href="" name="Init_Floor" id="Init_Floor" class="init_icon_navbar ui-btn-left ui-btn ui-shadow ui-corner-all ui-icon-alert ui-shadow-icon ui-state-disabled ui-btn-icon-notext"></a>
+		<a href="" name="Refresh_Floor" id="Refresh_Floor" class="init_icon_navbar ui-btn-right ui-btn ui-shadow ui-corner-all ui-icon-refresh ui-shadow-icon ui-btn-icon-notext">Not Initialized</a>
+		<h4>&copy; 2015 Stephan Merz</h4>
+	</div>
+</div>
+	
+</div>

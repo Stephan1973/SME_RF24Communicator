@@ -1,0 +1,84 @@
+{
+	"Aquarium":{
+		"WeekdayMorning" : {
+			"Start" : {
+				"JobName" : "Aqua_1",
+				"hour" : 8,
+				"minute" : 30,
+				"second" : 0,
+				"dayOfWeek" : [1,2,3,4,5]
+			},
+			"End" : {
+				"JobName" : "Aqua_2",
+				"hour" : 9,
+				"minute" : 30,
+				"second" : 0,
+				"dayOfWeek" : [1,2,3,4,5]
+			}
+		},
+		"WeekdayMidday" : {
+			"Start" : {
+				"JobName" : "Aqua_3",
+				"hour" : 12,
+				"minute" : 0,
+				"second" : 0,
+				"dayOfWeek" : [1,2,3,4,5]
+			},
+			"End" : {
+				"JobName" : "Aqua_4",
+				"hour" : 13,
+				"minute" : 0,
+				"second" : 0,
+				"dayOfWeek" : [1,2,3,4,5]
+			}
+		},
+		"WeekdayEvening" : {
+			"Start" : {
+				"JobName" : "Aqua_5",
+				"hour" : 17,
+				"minute" : 0,
+				"second" : 0,
+				"dayOfWeek" : [1,2,3,4,5]
+			},
+			"End" : {
+				"JobName" : "Aqua_6",
+				"hour" : 1,
+				"minute" : 0,
+				"second" : 0,
+				"dayOfWeek" : [2,3,4,5,6]
+			}
+		},
+		"WeekendMorning" : {
+			"Start" : {
+				"JobName" : "Aqua_7",
+				"hour" : 11,
+				"minute" : 0,
+				"second" : 0,
+				"dayOfWeek" : [6,7]
+			},
+			"End" : {
+				"JobName" : "Aqua_8",
+				"hour" : 12,
+				"minute" : 0,
+				"second" : 0,
+				"dayOfWeek" : [6,7]
+			}
+		},
+		"WeekendEvening" : {
+			"Start" : {
+				"JobName" : "Aqua_9",
+				"hour" : 15,
+				"minute" : 0,
+				"second" : 0,
+				"dayOfWeek" : [6,7]
+			},
+			"End" : {
+				"JobName" : "Aqua_10",
+				"hour" : 2,
+				"minute" : 0,
+				"second" : 0,
+				"dayOfWeek" : [7,1]
+			}
+		}
+	}
+}

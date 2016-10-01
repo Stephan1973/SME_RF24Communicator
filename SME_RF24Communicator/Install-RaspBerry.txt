@@ -1,0 +1,391 @@
+********************************************
+RaspBerry Host Name: SMERasPi
+
+Broadcast: 192.168.178.255
+RaspBerry: 192.168.178.28
+Fritz Box: 192.168.178.20
+Standardgateway: 192.168.178.1
+New Webserver: 192.168.178.77
+
+address 192.168.178.77
+netmask 255.255.255.0
+network 192.168.0.0
+broadcast 192.168.178.255
+gateway 192.168.178.1
+*********************************************
+
+
+Install RaspBerry Pi:
+- Format SD-Cart mit SDFormatterv4 (Format size adjustment = On)
+	Anleitung für 64GB SD Card unter https://www.youtube.com/watch?v=lm3hH8dF-2w
+Download von http://www.raspberrypi.org/downloads/
+- Download  Noobs (bei Installation Rasbian-Debian Wheezy auswählen) und entpackte dateien auf SD kopieren, 
+  oder Download Rasbian Image, entpacken und Image auf SD Card entpacken mit win32diskimager
+- SD Karte in RaspBerry Pi einstecken und Strom anschliessen
+bei start in xbmc preferences einstellen auf start von cli und autologin pi deaktivieren
+- reboot
+login a pi
+
+- in raspi-config einstellungen folgende vornehmen:
+	- sudo raspi-config (ACHTUNG - englisches Tastaturlayout
+	- host name
+	- ssh aktivieren
+	- Device Tree aktiviren
+	- SPI aktivieren
+	- I2C aktivieren
+	- sprache anpassen (zeitzone locale und tastaturlayout)
+	  
+- reboot 
+ACHTUNG: erst nach reboot, Passwort neu setzten, sonnst geht anmeldung wegen tatsturlayout evtl. nicht mehr
+	- pi passwort ändern
+-reboot
+- Passwort für root ändern: 
+sudo passwd root
+
+Update/Upgrad RaspBerry Pi 
+- sudo apt-get update
+- sudo apt-get upgrade
+- sudo reboot
+	- sudo rpi-update (nicht empfohlen, ausser beim ersten installieren oder man weiß warum)
+
+- sudo reboot
+- login as root
+	if login not work try edited the 
+	/etc/ssh/sshd_config file and uncomment/change/add the following line:
+	PermitRootLogin yes
+- reboot und login als root(ab hier kann mit putty verbindung aufgebaut werden, ip steht am ende des bootvorgangs)
+
+
+Kernel leack cgroup error beheben wenn vorhanden:
+sudo nano /boot/cmdline.txt
+add entry before elevator=deadline: cgroup_enable=memory
+
+
+Check Hostname (set if is not):
+- cd ..
+- sudo nano /etc/hostname
+- sudo nano /etc/hosts
+- reboot
+
+
+Network und WiFi:
+- Name WiFi adapter ermitteln (in liste Wireless Adapter suchen ): lsusb
+- suche nach treiber mit apt-cache search XXX (xxx = name der WiFi Adapters)
+- apt-cache search Ralink
+- sudo apt-get install firmware-ralink
+	- sudo rpi-update
+- sudo reboot
+- sudo iwlist scan (zeigt alle netzwerke an)
+- wpa_passphrase SMEHome XXX (XXX = WLan kennwort)
+- sudo nano /etc/network/interfaces (set STATIC)
+
+a42fc5860e6f09c0ce8990428de88515c426ecbab3a13980e1e4ffacb40b6ce8
+
+- berechtigung, so das nur root die datei lesen kann setzen:
+- sudo chmod 0600 /etc/network/interfaces
+- reboot
+Netzwerkkonfiguration prüfen mit (nur als Info):
+- anzeigen der netzwerk configuration: ifconfig
+wlan stoppen und starten mit (nur als Info):
+- sudo ifdown wlan0
+- sudo ifup wlan0
+
+
+Remotedesktop ()xrdp installieren:
+- sudo apt-get install xrdp	
+
+Install Git:
+- sudo apt-get install git
+- xbmc starten (zur info): startx
+
+
+Installation SME-HomeControl:
+
+- gesamtes SME_RF24Communicator auf USB-Stick kopieren und mit Raspberry Pi verbinden
+- remotedesktopverbindung herstellen und login as root
+
+Struktur erstellen in root (gesamtes Verzeichnis media/DEINUSBSTICK/SME_RF24Communicator kopieren):
+- SME_RF24Communicator
+	- SME_HomeControl
+		- SME_Remote
+			- public
+				- css
+				- images
+				- libs
+		- views
+			- layouts
+
+
+Verknüpfung erstellen von homecontrol.js:
+- ln -s /root/SME_RF24Communicator/SME_HomeControl/SME_Remote/homecontrol.js /root/SME_RF24Communicator/SME_HomeControl/homecontrol.js
+wenn vorhanden, dann erst löschen
+
+
+Installation RF24 Libary (https://github.com/tmrh20/RF24):
+
+RPi RF24 Library Installer for all RF24 libraries
+Download the install.sh file from http://tmrh20.github.io/RF24Installer/RPi/install.sh
+- Wechsel in verzeichnis SME_RF24Communicator
+- wget http://tmrh20.github.io/RF24Installer/RPi/install.sh
+- chmod +x install.sh
+- ./install.sh (nur RF24 und RF24 Network benötigt bei auswahl)
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Enabling Raspberry Pi GPIO and install Python
+	- sudo apt-get install python-dev (Python 2.7.x 3.2.x vorinstalliert von Rasbian Image)
+	- sudo apt-get install python-rpi.gpio (auch schon vorinstalliert von Rasbian Image)
+- sudo nano /etc/modules (#add this two modules: i2c-bcm2708 i2c-dev)
+- sudo apt-get install python-smbus
+	- sudo apt-get install i2c-tools (schon vorinstalliert von python-smbus)
+
+Compile remote_rf24:
+- g++ -Wall -Ofast -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -L../ -lrf24-bcm RF24_remote.cpp -o RF24_remote
+
+Compile Network remote_rf24:
+g++ -Wall -Ofast -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -L../ -lrf24-bcm -lrf24network  RF24_remote.cpp -o RF24_remote
+
+
+Install Node.js and NPM :
+
+- curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+- sudo apt-get install -y nodejs
+- sudo apt-get install -y build-essential
+
+**********old Version
+- wget http://node-arm.herokuapp.com/node_latest_armhf.deb 
+- sudo dpkg -i node_latest_armhf.deb
+***** other old version
+wget https://s3-eu-west-1.amazonaws.com/conoroneill.net/wp-content/uploads/2015/02/node-v0.12.0-linux-arm-pi.tar.gz
+tar -zxvf node-v0.12.0-linux-arm-pi.tar.gz
+cd node-v0.12.0-linux-arm-pi
+sudo cp -R * /usr/local/
+**********old Version END
+
+Compile RF24 Network Addon im Verzeichniss SME_Remote:
+npm install -g node-gyp
+node-gyp configure
+node-gyp build
+
+
+- in etc/init.d datei node-server.sh anlegen (befindet sich in SME_RF24Communicator verzeichniss)
+- cd /etc/init.d
+- chmod 755 ./node-server.sh
+Autostart aktivieren: (Fehler ignorieren, denn es funktinoert dennoch)
+- autostart aktivieren: sudo update-rc.d node-server.sh defaults
+- autostart deaktivieren (wenn nicht mehr benötigt wird): update-rc.d -f node-server.sh remove
+
+
+Genarate node-modules for Home Control:
+(im verszeichniss /SME_RF24Communicator/SME_HomeControl/SME_Remote ausführen)
+- cd ~
+- cd SME_RF24Communicator/SME_HomeControl/SME_Remote
+- sudo npm cache clean
+- sudo npm install 
+ToDo: Update to these Versions
+socket.io version 1.3.5
+erledigt - express 4.12.3
+erledigt - express-handlebars 3.0.0
+
+
+Install Samba Server:
+sudo apt-get update
+sudo apt-get install samba samba-common samba-common-bin winbind
+Anleitung:
+https://www.elektronik-kompendium.de/sites/raspberry-pi/2101091.htm
+https://www.elektronik-kompendium.de/sites/raspberry-pi/2007071.htm
+
+	- old Version of Samba http://blogs.arcsoftwareconsultancy.com/pi/2013/03/07/windows-networking/
+Verbinden mit \WORKGROUP\root
+NAS:
+/media/SM
+ERASPIUSB
+Password:
+sudo smbpasswd -a XXX (xxx = User, i set it to root)
+
+Install node-gyp (to compile node addons)
+sudo npm install node-gyp -g
+to build:
+npm install
+node-gyp rebuild
+node ./
+
+
+
+sudo modprobe -r spi_bcm2708
+sudo modprobe spi_bcm2708
+or
+
+sudo modprobe -r spi_bcm2835
+sudo modprobe spi_bcm2835
+
+************* Original from install Raspberry*************
+auto lo
+iface lo inet loopback
+
+iface eth0 inet manual
+
+allow-hotplug wlan0
+iface wlan0 inet manual
+    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+
+allow-hotplug wlan1
+iface wlan1 inet manual
+    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+************* Original from install Raspberry*************
+
+
+************ New STATIC USED ******************
+#auto lo
+
+#iface lo inet loopback
+iface eth0 inet static
+address 192.168.178.77
+netmask 255.255.255.0
+network 192.168.0.0
+broadcast 192.168.178.255
+gateway 192.168.178.1
+
+#auto  wlan0
+allow-hotplug wlan0
+iface wlan0 inet static
+address 192.168.178.77
+netmask 255.255.255.0
+network 192.168.0.0
+gateway 192.168.178.1
+wpa-ap-scan 1
+wpa-scan-ssid 1
+wpa-ssid "SMEHome"
+wpa-psk "a42fc5860e6f09c0ce8990428de88515c426ecbab3a13980e1e4ffacb40b6ce8"
+************ STATIC USED ******************
+
+
+************ STATIC USED ******************
+auto eth0 lo
+
+iface lo inet loopback
+iface eth0 inet static
+address 192.168.178.77
+netmask 255.255.255.0
+#network 192.168.178.0
+broadcast 192.168.178.255
+gateway 192.168.178.1
+dns-nameservers 192.168.178.1
+dns-domain raspberrypi.local # optional
+
+
+auto  wlan0
+allow-hotplug wlan0
+iface wlan0 inet static
+address 192.168.178.77
+netmask 255.255.255.0
+network 192.168.0.0
+gateway 192.168.178.1
+wpa-ap-scan 1
+wpa-scan-ssid 1
+wpa-ssid "SMEHome"
+wpa-psk "a42fc5860e6f09c0ce8990428de88515c426ecbab3a13980e1e4ffacb40b6ce8"
+************ STATIC USED ******************
+
+************ DHCP EXAMPLE NOT USED ******************
+auto lo
+iface lo inet loopback
+
+iface eth0 inet dhcp
+iface default inet dhcp
+
+auto wlan0
+iface wlan0 inet dhcp
+wpa-ssid WLANNAME
+wpa-psk key von passphrase
+************ DHCP EXAMPLE NOT USED ******************	
+
+
+Compile RF24Network
+g++ -Wall -fPIC -Ofast -mfpu=vfp -mfloat-abi=hard -march=armv7-a -mtune=arm1176jzf-s -std=c++0x -c RF24Network.cpp
+g++ -shared -Wl,-soname,librf24network.so.1 -Ofast -mfpu=vfp -mfloat-abi=hard -march=armv7-a -mtune=arm1176jzf-s -std=c++0x -o librf24network.so.1.0 RF24Network.o -lrf24-bcm
+
+Compile RF24
+
+cp utility/RPi/includes.h utility/includes.h
+g++ -Wall -fPIC -Ofast -mfpu=vfp -mfloat-abi=hard -march=armv7-a -mtune=arm1176jzf-s -c RF24.cpp
+g++ -Wall -fPIC -Ofast -mfpu=vfp -mfloat-abi=hard -march=armv7-a -mtune=arm1176jzf-s -c utility/RPi/spi.cpp
+gcc -Wall -fPIC -Ofast -mfpu=vfp -mfloat-abi=hard -march=armv7-a -mtune=arm1176jzf-s -c utility/RPi/bcm2835.c
+g++ -Wall -fPIC -Ofast -mfpu=vfp -mfloat-abi=hard -march=armv7-a -mtune=arm1176jzf-s -c utility/RPi/interrupt.c
+g++ -shared -Wl,-soname,librf24-bcm.so.1 -pthread -Ofast -mfpu=vfp -mfloat-abi=hard -march=armv7-a -mtune=arm1176jzf-s -o librf24-bcm.so.1.0 RF24.o spi.o bcm2835.o interrupt.o
+
+
+{
+    "name": "SME_Remote",
+    "version": "0.1.0",
+    "author": "Stephan Merz",
+    "description": "Web interface for nrf24l01+",
+    "dependencies": {
+        "socket.io": "0.9.16",
+        "express": "4.12.3",
+        "express-handlebars": "2.0.0"
+    },
+    "engines": {     "node": "0.12.x"   }
+}
+
+
+{
+  "name": "SME_Remote",
+  "version": "0.1.0",
+  "author": "Stephan Merz",
+  "description": "Web interface for nrf24l01+",
+  "dependencies": {
+    "c-struct": "0.0.3",
+    "express": "4.13.4",
+    "express-handlebars": "3.0.0",
+    "socket.io": "1.4.5"
+  },
+  "engines": {
+    "node": "0.12.x"
+  }
+}
+
+
+
+ Serial.flush()
+
+
+
+node server sh
+
+#! /bin/sh
+# /etc/init.d/node-server
+ 
+### BEGIN INIT INFO
+# Provides:          node-server
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+### END INIT INFO
+ 
+# change this to wherever your node app lives # 
+# path_to_node_app=/var/www/index.js 
+path_to_node_app=/root/SME_RF24Communicator/SME_HomeControl/homecontrol.js
+ 
+# Carry out specific functions when asked to by the system
+case "$1" in
+  start)
+    echo "* starting node-server * "
+    echo "* starting node-server * [`date`]" >> /var/log/node-server.log
+#    /usr/local/bin/node $path_to_node_app >> /var/log/node-server.log 2>&1&
+    cd /root/SME_RF24Communicator/SME_HomeControl
+    sudo node $path_to_node_app >> /var/log/node-server.log 2>&1&
+    ;;
+  stop)
+    echo "* stopping node-server * "
+    echo "* stopping node-server * [`date`]" >> /var/log/node-server.log
+    killall /usr/local/bin/node
+    ;;
+  *)
+    echo "Usage: /etc/init.d/node-server {start|stop}"
+    exit 1
+    ;;
+esac
+ 
+exit 0
+

@@ -1,0 +1,5 @@
+Main.Handlebar:
+-translucent
+
+Header option in every view:
+data-fullscreen="true" 

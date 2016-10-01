@@ -1,0 +1,17 @@
+{
+  "name": "SME_Remote",
+  "version": "0.1.0",
+  "author": "Stephan Merz",
+  "description": "Web interface for nrf24l01+",
+  "dependencies": {
+    "c-struct": "0.0.3",
+    "express": "4.13.4",
+    "express-handlebars": "3.0.0",
+    "socket.io": "1.4.5",
+	"node-schedule": "1.0.x",
+	"nconf": "0.8.4"
+  },
+  "engines": {
+    "node": "4.x"
+  }
+}
